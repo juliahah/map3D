@@ -2,67 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <title>Cesium Fullscreen Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <!-- Include the CesiumJS JavaScript and CSS files -->
   <script src="https://cesium.com/downloads/cesiumjs/releases/1.128/Build/Cesium/Cesium.js"></script>
   <link href="https://cesium.com/downloads/cesiumjs/releases/1.128/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
+  <style>
+    html, body, #cesiumContainer {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body>
-  <div id="cesiumContainer" style="width: 100%; height: 100%;"></div>
+  <div id="cesiumContainer"></div>
   
   <script type="module">
-    // Replace `your_access_token` with your Cesium Ion access token.
     Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MGQzMDY3Mi0wNjYwLTQ5ZjUtODc1NS1kM2YwYzVjZDIzMjUiLCJpZCI6MjE0Mjc0LCJpYXQiOjE3MTUzNDQ1ODh9.PdrMif0zYQSTkvZYqcPNo4dwqQiq19yNB8o8cJpJD9U';
 
-    // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID with UI elements disabled
     const viewer = new Cesium.Viewer('cesiumContainer', {
       terrain: Cesium.Terrain.fromWorldTerrain(),
-      sceneMode: Cesium.SceneMode.SCENE3D, // Make sure the view is in 3D mode
-      selectionIndicator: false,           // Hide the selection indicator
-      timeline: false,                     // Hide the timeline at the bottom
-      navigationHelpButton: false,         // Hide the "navigation help" button
-      sceneModePicker: false,              // Hide the scene mode picker (e.g., 2D, 3D, etc.)
-      homeButton: false,                   // Hide the home button
-      fullscreenButton: false,             // Hide the fullscreen button
-      geocoder: false,                     // Hide the geocoder (search box)
-      imageryProviderViewModels: [],       // Remove imagery provider options
-      selectedImageryProviderViewModel: undefined, // Remove selected imagery
-      showRenderLoopErrors: false,         // Hide errors in the rendering loop
-      infoBox: false,                      // Hide the info box that appears when clicking on features
-      navigationInstructionsInitiallyVisible: false // Hide the navigation instructions at the start
+      sceneMode: Cesium.SceneMode.SCENE3D,
+      selectionIndicator: false,
+      timeline: false,
+      navigationHelpButton: false,
+      sceneModePicker: false,
+      homeButton: false,
+      fullscreenButton: false,
+      geocoder: false,
+      imageryProviderViewModels: [],
+      selectedImageryProviderViewModel: undefined,
+      showRenderLoopErrors: false,
+      infoBox: false,
+      navigationInstructionsInitiallyVisible: false
     });
 
-    // Fly the camera to the Eiffel Tower first
+    
+
     viewer.camera.flyTo({
-      destination: Cesium.Cartesian3.fromDegrees(2.2945, 48.8584, 500), // Coordinates for the Eiffel Tower (Eiffel Tower's location)
+      destination: Cesium.Cartesian3.fromDegrees(2.2945, 48.8584, 500),
       orientation: {
         heading: Cesium.Math.toRadians(0.0),
-        pitch: Cesium.Math.toRadians(-30.0), // Slightly tilted down to view the base of the Eiffel Tower
+        pitch: Cesium.Math.toRadians(-30.0),
         roll: 0.0
       },
-      duration: 2,  // Fly to Eiffel Tower in 2 seconds
+      duration: 2,
     });
 
-    // Zoom out smoothly from Eiffel Tower
     viewer.camera.flyTo({
-      destination: Cesium.Cartesian3.fromDegrees(2.2945, 48.8584, 5000), // Coordinates for Eiffel Tower but zoomed out
-      duration: 15,  // Slowly zoom out over 15 seconds
-      easingFunction: Cesium.EasingFunction.LINEAR, // Smooth transition without any sudden changes
+      destination: Cesium.Cartesian3.fromDegrees(2.2945, 48.8584, 5000),
+      duration: 15,
+      easingFunction: Cesium.EasingFunction.LINEAR,
     });
 
     setTimeout(() => {
-        // Zoom out smoothly from Eiffel Tower
-        viewer.camera.flyTo({
-          destination: Cesium.Cartesian3.fromDegrees(2.3602348, 48.8325616, 300), // Coordinates for Eiffel Tower but zoomed out
-          orientation: {
-            heading: Cesium.Math.toRadians(0.0),
-            pitch: Cesium.Math.toRadians(-30.0), // Slightly tilted down to view the base of the Eiffel Tower
-            roll: 0.0
-          },
-          duration: 15,  // Slowly zoom out over 15 seconds
-          easingFunction: Cesium.EasingFunction.LINEAR, // Smooth transition without any sudden changes
-        });
-    }, 17000);  // Adjust the pitch after 1000 milliseconds (1 second)
+      viewer.camera.flyTo({
+        destination: Cesium.Cartesian3.fromDegrees(2.3602348, 48.8325616, 300),
+        orientation: {
+          heading: Cesium.Math.toRadians(0.0),
+          pitch: Cesium.Math.toRadians(-30.0),
+          roll: 0.0
+        },
+        duration: 15,
+        easingFunction: Cesium.EasingFunction.LINEAR,
+      });
+    }, 17000);
 
+    setTimeout(() => {
+      location.reload();
+    }, 35000);
   </script>
 </body>
 </html>
